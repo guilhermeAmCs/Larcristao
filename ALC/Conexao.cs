@@ -7,7 +7,7 @@ using MySql.Data.MySqlClient;
 using System.Data;
 using System.Windows.Forms;
 
-namespace LarCristao
+namespace ALC
 {
     /// <summary>
     /// Classe para conexão de dados simplificada com o MySQL

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LarCristao
+namespace ALC
 {
     /// <summary>
     /// Possui todas as tabelas do banco bd_larc em formato de classes.

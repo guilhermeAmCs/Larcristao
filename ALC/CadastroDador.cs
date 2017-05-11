@@ -170,6 +170,8 @@ namespace ALC
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
+            Conexao x = new Conexao();
+
             if (rdbCPF.Checked == true)
             {
                 if (txbCPF.Text != null && txbCPF.Text != string.Empty)
@@ -187,6 +189,7 @@ namespace ALC
                     if (txbCNPJ.Text != null && txbCNPJ.Text != string.Empty)
                     {
                         String parametros = "" + txbCNPJ.Text + ", " + txbRazao.Text + ", " + txbEmailcnpj.Text + ", " + txbTelefone1cnpj.Text + ", " + txbTelefone2cnpj.Text;
+                        
                     }
                     else
                         MessageBox.Show("O campo CNPJ é obrigatório.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
