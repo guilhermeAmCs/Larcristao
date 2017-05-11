@@ -48,17 +48,24 @@
             this.btnVoltar = new System.Windows.Forms.Button();
             this.btnLimpar = new System.Windows.Forms.Button();
             this.btnSalvar = new System.Windows.Forms.Button();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnAdicionar = new System.Windows.Forms.Button();
             this.grbTipoDoador.SuspendLayout();
             this.grbDescDoador.SuspendLayout();
             this.grbDescProduto.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // lblDoacao
             // 
             this.lblDoacao.AutoSize = true;
             this.lblDoacao.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDoacao.Location = new System.Drawing.Point(347, 27);
+            this.lblDoacao.Location = new System.Drawing.Point(422, 27);
             this.lblDoacao.Name = "lblDoacao";
             this.lblDoacao.Size = new System.Drawing.Size(242, 31);
             this.lblDoacao.TabIndex = 9;
@@ -154,7 +161,7 @@
             this.grbDescDoador.Enabled = false;
             this.grbDescDoador.Location = new System.Drawing.Point(18, 82);
             this.grbDescDoador.Name = "grbDescDoador";
-            this.grbDescDoador.Size = new System.Drawing.Size(571, 108);
+            this.grbDescDoador.Size = new System.Drawing.Size(491, 108);
             this.grbDescDoador.TabIndex = 19;
             this.grbDescDoador.TabStop = false;
             this.grbDescDoador.Text = "Selecione a Empresa ou Pessoa";
@@ -169,7 +176,7 @@
             "Tobias"});
             this.cmbPessoa.Location = new System.Drawing.Point(176, 68);
             this.cmbPessoa.Name = "cmbPessoa";
-            this.cmbPessoa.Size = new System.Drawing.Size(374, 21);
+            this.cmbPessoa.Size = new System.Drawing.Size(285, 21);
             this.cmbPessoa.TabIndex = 22;
             this.cmbPessoa.Text = "Clique aqui para selecionar a pessoa ...";
             this.cmbPessoa.SelectedIndexChanged += new System.EventHandler(this.cmbPessoa_SelectedIndexChanged);
@@ -183,7 +190,7 @@
             "Empresa de Teste 1"});
             this.cmbEmpresa.Location = new System.Drawing.Point(176, 28);
             this.cmbEmpresa.Name = "cmbEmpresa";
-            this.cmbEmpresa.Size = new System.Drawing.Size(374, 21);
+            this.cmbEmpresa.Size = new System.Drawing.Size(285, 21);
             this.cmbEmpresa.TabIndex = 21;
             this.cmbEmpresa.Text = "Clique aqui para selecionar a empresa ...";
             this.cmbEmpresa.SelectedIndexChanged += new System.EventHandler(this.cmbEmpresa_SelectedIndexChanged);
@@ -199,10 +206,11 @@
             this.grbDescProduto.Enabled = false;
             this.grbDescProduto.Location = new System.Drawing.Point(18, 206);
             this.grbDescProduto.Name = "grbDescProduto";
-            this.grbDescProduto.Size = new System.Drawing.Size(571, 146);
+            this.grbDescProduto.Size = new System.Drawing.Size(491, 146);
             this.grbDescProduto.TabIndex = 20;
             this.grbDescProduto.TabStop = false;
             this.grbDescProduto.Text = "Selecione o Tipo do Produto / Descrição ";
+            this.grbDescProduto.Enter += new System.EventHandler(this.grbDescProduto_Enter);
             // 
             // numericUpDown1
             // 
@@ -226,17 +234,10 @@
             // 
             this.cmbDescricao.FormattingEnabled = true;
             this.cmbDescricao.Items.AddRange(new object[] {
-            "PlayStation 4",
-            "PlayStation 5",
-            "Lego - StarWars",
-            "Comida gostosa",
-            "Comida gostosa não perecivel",
-            "Roupa de frio",
-            "Camiseta",
-            "Outro produto qualquer"});
+            "Pacote de Arroz comum 5Kg"});
             this.cmbDescricao.Location = new System.Drawing.Point(176, 68);
             this.cmbDescricao.Name = "cmbDescricao";
-            this.cmbDescricao.Size = new System.Drawing.Size(374, 21);
+            this.cmbDescricao.Size = new System.Drawing.Size(285, 21);
             this.cmbDescricao.TabIndex = 24;
             this.cmbDescricao.Text = "Clique aqui para selecionar a descrição do produto ...";
             this.cmbDescricao.SelectedIndexChanged += new System.EventHandler(this.cmbDescricao_SelectedIndexChanged);
@@ -246,11 +247,11 @@
             this.cmbTipo.FormattingEnabled = true;
             this.cmbTipo.Items.AddRange(new object[] {
             "Brinquedo",
-            "Alimento",
-            "Roupa"});
+            "Roupa",
+            "Alimento"});
             this.cmbTipo.Location = new System.Drawing.Point(176, 27);
             this.cmbTipo.Name = "cmbTipo";
-            this.cmbTipo.Size = new System.Drawing.Size(374, 21);
+            this.cmbTipo.Size = new System.Drawing.Size(285, 21);
             this.cmbTipo.TabIndex = 23;
             this.cmbTipo.Text = "Clique aqui para selecionar o tipo do produto ...";
             this.cmbTipo.SelectedIndexChanged += new System.EventHandler(this.cmbTipo_SelectedIndexChanged);
@@ -269,9 +270,9 @@
             // btnLimpar
             // 
             this.btnLimpar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLimpar.Location = new System.Drawing.Point(232, 374);
+            this.btnLimpar.Location = new System.Drawing.Point(224, 374);
             this.btnLimpar.Name = "btnLimpar";
-            this.btnLimpar.Size = new System.Drawing.Size(143, 36);
+            this.btnLimpar.Size = new System.Drawing.Size(75, 36);
             this.btnLimpar.TabIndex = 22;
             this.btnLimpar.Text = "Limpar";
             this.btnLimpar.UseVisualStyleBackColor = true;
@@ -281,19 +282,66 @@
             // 
             this.btnSalvar.Enabled = false;
             this.btnSalvar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSalvar.Location = new System.Drawing.Point(446, 374);
+            this.btnSalvar.Location = new System.Drawing.Point(792, 374);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(143, 36);
             this.btnSalvar.TabIndex = 21;
-            this.btnSalvar.Text = "Salvar";
+            this.btnSalvar.Text = "Verificar Doacao";
             this.btnSalvar.UseVisualStyleBackColor = true;
+            this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1,
+            this.Column2,
+            this.Column3,
+            this.Column4});
+            this.dataGridView1.Location = new System.Drawing.Point(515, 82);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(420, 270);
+            this.dataGridView1.TabIndex = 24;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Doador";
+            this.Column1.Name = "Column1";
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Tipo de produto";
+            this.Column2.Name = "Column2";
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "Descrição";
+            this.Column3.Name = "Column3";
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Quantidade";
+            this.Column4.Name = "Column4";
+            // 
+            // btnAdicionar
+            // 
+            this.btnAdicionar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAdicionar.Location = new System.Drawing.Point(366, 374);
+            this.btnAdicionar.Name = "btnAdicionar";
+            this.btnAdicionar.Size = new System.Drawing.Size(143, 36);
+            this.btnAdicionar.TabIndex = 25;
+            this.btnAdicionar.Text = "Adicionar";
+            this.btnAdicionar.UseVisualStyleBackColor = true;
+            this.btnAdicionar.Click += new System.EventHandler(this.btnAdicionar_Click);
             // 
             // RegistroDoacao
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(606, 431);
+            this.ClientSize = new System.Drawing.Size(947, 431);
             this.ControlBox = false;
+            this.Controls.Add(this.btnAdicionar);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.btnVoltar);
             this.Controls.Add(this.btnLimpar);
             this.Controls.Add(this.btnSalvar);
@@ -307,6 +355,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Registro de Doações";
+            this.Load += new System.EventHandler(this.RegistroDoacao_Load);
             this.grbTipoDoador.ResumeLayout(false);
             this.grbTipoDoador.PerformLayout();
             this.grbDescDoador.ResumeLayout(false);
@@ -314,6 +363,7 @@
             this.grbDescProduto.ResumeLayout(false);
             this.grbDescProduto.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -341,5 +391,11 @@
         private System.Windows.Forms.Button btnSalvar;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label lblQuantidade;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button btnAdicionar;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
     }
 }

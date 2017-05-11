@@ -61,6 +61,12 @@
       <DependentUpon>CadastroProduto.cs</DependentUpon>
     </Compile>
     <Compile Include="Conexao.cs" />
+    <Compile Include="finalizarDoacao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="finalizarDoacao.designer.cs">
+      <DependentUpon>finalizarDoacao.cs</DependentUpon>
+    </Compile>
     <Compile Include="Principal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,7 +78,7 @@
     <Compile Include="RegistroDoacao.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RegistroDoacao.Designer.cs">
+    <Compile Include="RegistroDoacao.designer.cs">
       <DependentUpon>RegistroDoacao.cs</DependentUpon>
     </Compile>
     <Compile Include="RegistroRetira.cs">
@@ -99,6 +105,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CadastroProduto.resx">
       <DependentUpon>CadastroProduto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="finalizarDoacao.resx">
+      <DependentUpon>finalizarDoacao.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Principal.resx">
       <DependentUpon>Principal.cs</DependentUpon>

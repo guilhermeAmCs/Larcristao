@@ -12,11 +12,27 @@ namespace ALC
 {
     public partial class RegistroDoacao : Form
     {
+
+        // vetores que contem a descrição eo tipo de item
+        List<string> descriçãoItem = new List<string>();
+        List<string> tipoItem = new List<string>();
+        List<string> quantidadeDoItem = new List<string>();
+        //lista de parceiros e naoparceiros        
+        string doador;
+        int codDoador;
+
         public RegistroDoacao()
         {
             InitializeComponent();
+            //pO combobox tipo pode ser preenchido logo quando a tela e iniciada
+            //diferente dos outros que dependem do rdiobutton ou da selecao feita
+            // no cmbtipo
+            Conexao x = new Conexao();
+            DataTable minhaDataTable = x.query("SELECT DISTINCT item.`tipo` from item;");
+            cmbTipo.DataSource = minhaDataTable;
+            cmbTipo.DisplayMember = "tipo";
         }
-
+        
         private void btnVoltar_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -33,6 +49,11 @@ namespace ALC
             cmbEmpresa.Enabled = true;
 
             grbDescProduto.Enabled = false;
+            Conexao x = new Conexao();
+            DataTable minhaDataTable = x.query("SELECT parceiro.`cnpj` from parceiro;");
+            List<DataRow> colunasDaTabela = minhaDataTable.AsEnumerable().ToList();
+            cmbEmpresa.DataSource = minhaDataTable;
+            cmbEmpresa.DisplayMember = "cnpj";
         }
 
         private void rdbCPF_Click(object sender, EventArgs e)
@@ -46,6 +67,11 @@ namespace ALC
             cmbPessoa.Enabled = true;
 
             grbDescProduto.Enabled = false;
+            Conexao x = new Conexao();
+            DataTable minhaDataTable = x.query("SELECT nao_parceiro.`cpf` from nao_parceiro;");
+            List<DataRow> colunasDaTabela = minhaDataTable.AsEnumerable().ToList();
+            cmbPessoa.DataSource = minhaDataTable;
+            cmbPessoa.DisplayMember = "cpf";
         }
 
         private void rdbOutros_Click(object sender, EventArgs e)
@@ -64,7 +90,7 @@ namespace ALC
             if (cmbEmpresa.Text != "Clique aqui para selecionar a empresa ...")
             {
                 grbDescProduto.Enabled = true;
-
+                doador = cmbEmpresa.Text;
                 lblDescricaoProduto.Enabled = false;
                 cmbDescricao.Enabled = false;
                 lblQuantidade.Enabled = false;
@@ -81,7 +107,7 @@ namespace ALC
             if (cmbPessoa.Text != "Clique aqui para selecionar a pessoa ...")
             {
                 grbDescProduto.Enabled = true;
-
+                doador = cmbPessoa.Text;
                 lblDescricaoProduto.Enabled = false;
                 cmbDescricao.Enabled = false;
                 lblQuantidade.Enabled = false;
@@ -97,8 +123,13 @@ namespace ALC
         {
             if (cmbTipo.Text != "Clique aqui para selecionar o tipo do produto ...")
             {
+
                 lblDescricaoProduto.Enabled = true;
                 cmbDescricao.Enabled = true;
+                Conexao x = new Conexao();
+                DataTable minhaDataTable = x.query("SELECT DISTINCT  item.`descricao` from item;");
+                cmbDescricao.DataSource = minhaDataTable;
+                cmbDescricao.DisplayMember = "descricao";
             }
             else
             {
@@ -120,11 +151,11 @@ namespace ALC
         {
             if (numericUpDown1.Value != 0)
             {
-                btnSalvar.Enabled = true;
+                btnAdicionar.Enabled = true;
             }
             else
             {
-                btnSalvar.Enabled = false;
+                btnAdicionar.Enabled = false;
             }
         }
 
@@ -146,6 +177,53 @@ namespace ALC
             rdbOutros.Checked = false;
 
             btnSalvar.Enabled = false;
+        }
+
+        private void grbDescProduto_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSalvar_Click(object sender, EventArgs e)
+        {
+            Conexao x = new Conexao();
+            DataTable minhaDataTable;
+            if (rdbCNPJ.Checked == true)
+                minhaDataTable = x.query("Select nao_parceiro.cod_doador from bd_larc.`nao_parceiro` where cpf ='" + doador + "'");
+            else
+                minhaDataTable = x.query("Select parceiro.cod_doador from bd_larc.`parceiro` where cnpj ='" + doador + "'");
+            codDoador = Convert.ToInt32(minhaDataTable.Rows[0][0].ToString());
+            finalizarDoacao telaDeFinalização = new finalizarDoacao(descriçãoItem, tipoItem, doador, quantidadeDoItem, codDoador);
+            telaDeFinalização.Show();
+        }
+        //Adiciona os items no datagrid view ao lado
+        private void btnAdicionar_Click(object sender, EventArgs e)
+        {
+            if (rdbCNPJ.Checked) {
+                dataGridView1.Rows.Add(cmbEmpresa.Text, cmbTipo.Text,cmbDescricao.Text, numericUpDown1.Value.ToString());
+                descriçãoItem.Add(cmbDescricao.Text);
+                tipoItem.Add(cmbTipo.Text);
+                quantidadeDoItem.Add(numericUpDown1.Value.ToString());
+                        
+            }
+            else if (rdbCPF.Checked)
+            {
+                dataGridView1.Rows.Add(cmbPessoa.Text, cmbTipo.Text, cmbDescricao.Text, numericUpDown1.Value.ToString());
+                descriçãoItem.Add(cmbDescricao.Text);
+                tipoItem.Add(cmbTipo.Text);
+                quantidadeDoItem.Add(numericUpDown1.Value.ToString());
+            }
+            else {
+                MessageBox.Show("Você deve selecionar um tipo de doador",
+                    "Doador não selerionado",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+            }
+            btnAdicionar.Enabled = false;
+            btnSalvar.Enabled = true;
+        }
+
+        private void RegistroDoacao_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
