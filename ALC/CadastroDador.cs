@@ -177,6 +177,14 @@ namespace ALC
                 if (txbCPF.Text != null && txbCPF.Text != string.Empty)
                 {
                     String parametros = "" + txbCPF.Text + ", " + txbNome.Text + ", " + txbEmailcpf.Text + ", " + txbTelefone1cpf.Text + ", " + txbTelefone2cpf.Text;
+                    x.query("INSERT INTO bd_larc.`doador`  values ('0', '" + txbEmailcpf.Text + "', '" + txbTelefone1cpf.Text+ "', '" + txbTelefone2cpf.Text + "');");
+                    DataTable minhaDataTable = x.query("SELECT `doador`.cod_doador FROM bd_larc.`doador` where `doador`.email = '" + txbEmailcpf.Text + "'");
+                    if (minhaDataTable.Rows.Count > 0)
+                    {
+                        Int32 codDoador = Convert.ToInt32(minhaDataTable.Rows[0]["cod_doador"]);
+                        x.query("Insert into bd_larc.`nao_parceiro` values ( '" + txbNome.Text + "', '" + txbEmailcpf.Text + "', '" + codDoador.ToString() + "');");
+                        MessageBox.Show(codDoador.ToString());
+                    }
                 }
                 else
                     MessageBox.Show("O campo CPF é obrigatório.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -184,12 +192,23 @@ namespace ALC
             }
             else 
             {
-                if (rdbCPF.Checked == true)
+                if (rdbCNPJ.Checked == true)
                 {
                     if (txbCNPJ.Text != null && txbCNPJ.Text != string.Empty)
                     {
                         String parametros = "" + txbCNPJ.Text + ", " + txbRazao.Text + ", " + txbEmailcnpj.Text + ", " + txbTelefone1cnpj.Text + ", " + txbTelefone2cnpj.Text;
-                        
+                        x.query("INSERT INTO bd_larc.`doador`  values ('0', '" + txbEmailcnpj.Text + "', '" + txbTelefone1cnpj.Text + "', '" + txbTelefone2cnpj.Text + "');");
+                        DataTable minhaDataTable = x.query("SELECT `doador`.cod_doador FROM bd_larc.`doador` where `doador`.email = '" + txbEmailcnpj.Text + "'");
+                        if (minhaDataTable.Rows.Count > 0)
+                        {
+                            Int32 codDoador = Convert.ToInt32(minhaDataTable.Rows[0]["cod_doador"]);
+                            x.query("Insert into bd_larc.`parceiro` values ( '" + txbRazao.Text + "', '" + txbCNPJ.Text + "', '" + codDoador.ToString()  +"'");
+                            MessageBox.Show(codDoador.ToString());
+                        }
+                        else
+                        {
+                            MessageBox.Show(" Erro","Erro");
+                        }
                     }
                     else
                         MessageBox.Show("O campo CNPJ é obrigatório.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
