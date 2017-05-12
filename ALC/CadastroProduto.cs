@@ -72,5 +72,15 @@ namespace ALC
         {
             btnCadastrar.Enabled = true;
         }
+
+        private void btnCadastrar_Click(object sender, EventArgs e)
+        {
+            Conexao x = new Conexao();
+            x.query("INSERT INTO `bd_larc`.`item`(`cod_it`,`tipo`,`descricao`)VALUES(0, '" + cmbTipo.Text + "', '" + txbDescricao.Text + "');");
+            DataTable minhaDatatable = x.query("Select `item`.`cod_it` from `bd_larc`.`item` where `item`.`tipo`='" + cmbTipo.Text + "' AND `item`.`descricao`='" + txbDescricao.Text + "';");
+            System.Threading.Thread.Sleep(150);
+            x.query("INSERT INTO `bd_larc`.`estoque`(`cod_it`,`quantidade_it`)VALUES("+ minhaDatatable.Rows[0][0] +",0);");
+
+        }
     }
 }

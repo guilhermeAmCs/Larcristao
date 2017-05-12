@@ -100,6 +100,7 @@ namespace ALC
                 {
                     DataTable minhaDataTable = x.query("Select cod_it from bd_larc.`item` where `tipo`='" + dataGridView1.Rows[i].Cells[0].Value + "' AND `descricao`='" + dataGridView1.Rows[i].Cells[1].Value + "';");
                     x.query("Insert INTO bd_larc.`doacxitem` values (" + Convert.ToInt32(dataGridView1.Rows[i].Cells[2].Value.ToString()) + ", " + int.Parse(minhaDataTable.Rows[0][0].ToString()) + ", " + codDoacao + ");");
+                    x.query(" UPDATE `bd_larc`.`estoque` SET `estoque`.`quantidade_it` = `estoque`.`quantidade_it` + " + Convert.ToInt32(dataGridView1.Rows[i].Cells[2].Value.ToString()) + " WHERE `estoque`.`cod_it`= '" + int.Parse(minhaDataTable.Rows[0][0].ToString()) + "';");
                 }
             }
             MessageBox.Show("Operação concluida", "Doação registrada", MessageBoxButtons.OK, MessageBoxIcon.Information);
