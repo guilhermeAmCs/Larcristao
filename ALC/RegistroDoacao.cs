@@ -12,7 +12,6 @@ namespace ALC
 {
     public partial class RegistroDoacao : Form
     {
-
         // vetores que contem a descrição eo tipo de item
         List<string> descriçãoItem = new List<string>();
         List<string> tipoItem = new List<string>();
@@ -32,7 +31,7 @@ namespace ALC
             cmbTipo.DataSource = minhaDataTable;
             cmbTipo.DisplayMember = "tipo";
         }
-        
+
         private void btnVoltar_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -127,7 +126,7 @@ namespace ALC
                 lblDescricaoProduto.Enabled = true;
                 cmbDescricao.Enabled = true;
                 Conexao x = new Conexao();
-                DataTable minhaDataTable = x.query("SELECT DISTINCT  item.`descricao` from item;");
+                DataTable minhaDataTable = x.query("SELECT DISTINCT  item.`descricao` from item WHERE item.`tipo` = '" + cmbTipo.Text + "';");
                 cmbDescricao.DataSource = minhaDataTable;
                 cmbDescricao.DisplayMember = "descricao";
             }
@@ -199,12 +198,13 @@ namespace ALC
         //Adiciona os items no datagrid view ao lado
         private void btnAdicionar_Click(object sender, EventArgs e)
         {
-            if (rdbCNPJ.Checked) {
-                dataGridView1.Rows.Add(cmbEmpresa.Text, cmbTipo.Text,cmbDescricao.Text, numericUpDown1.Value.ToString());
+            if (rdbCNPJ.Checked)
+            {
+                dataGridView1.Rows.Add(cmbEmpresa.Text, cmbTipo.Text, cmbDescricao.Text, numericUpDown1.Value.ToString());
                 descriçãoItem.Add(cmbDescricao.Text);
                 tipoItem.Add(cmbTipo.Text);
                 quantidadeDoItem.Add(numericUpDown1.Value.ToString());
-                        
+
             }
             else if (rdbCPF.Checked)
             {
@@ -213,9 +213,10 @@ namespace ALC
                 tipoItem.Add(cmbTipo.Text);
                 quantidadeDoItem.Add(numericUpDown1.Value.ToString());
             }
-            else {
+            else
+            {
                 MessageBox.Show("Você deve selecionar um tipo de doador",
-                    "Doador não selerionado",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+                    "Doador não selerionado", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             btnAdicionar.Enabled = false;
             btnSalvar.Enabled = true;
@@ -225,5 +226,6 @@ namespace ALC
         {
 
         }
+
     }
 }

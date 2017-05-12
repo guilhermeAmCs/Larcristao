@@ -54,11 +54,19 @@ namespace ALC
                     }
                     else
                     {
-                        listaDeValores.Add(Convert.ToDouble(minhaDataTable.Rows[0][0].ToString()));
+                        try
+                        {
+                            listaDeValores.Add(Convert.ToDouble(minhaDataTable.Rows[0][0].ToString()));
+                        }
+                        catch
+                        {
+                            listaDeValores.Add(0);
+                        }
                     }
                 }
-                else {
-                    MessageBox.Show("O rpogama não conseguiu conectar com o banco de dados. Aguarde um momento e tente novamente.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                else
+                {
+                    MessageBox.Show("O programa não conseguiu conectar com o banco de dados. Aguarde um momento e tente novamente.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
 
@@ -66,8 +74,9 @@ namespace ALC
 
             for (int i = 0; i < descriçãoDosItems.Count; i++)
             {
-                if(quantidadeItens[i][0] != 'I'){
-                   dataGridView1.Rows.Add(tipoDosItems[i], descriçãoDosItems[i], quantidadeItens[i], listaDeValores[i], double.Parse(quantidadeItens[i]) * listaDeValores[i]);
+                if (quantidadeItens[i][0] != 'I')
+                {
+                    dataGridView1.Rows.Add(tipoDosItems[i], descriçãoDosItems[i], quantidadeItens[i], listaDeValores[i], double.Parse(quantidadeItens[i]) * listaDeValores[i]);
                     valorTotal += double.Parse(quantidadeItens[i]) * listaDeValores[i];
                 }
                 else
@@ -82,18 +91,19 @@ namespace ALC
             Conexao x = new Conexao();
             Int32 codDoacao;
 
-                x.query("Insert INTO bd_larc.`doacao` values (0, '" + valorTotal.ToString().Replace(',','.') + "', '" + doadorCod + "');");
-                DataTable tabeladoacao = x.query("Select cod_doacao FROM bd_larc.`doacao` where cod_doador='" + doadorCod + "' AND valor_total='" + valorTotal + "';");
-                codDoacao = Convert.ToInt32(tabeladoacao.Rows[0][0].ToString());
-                for (int i = 0; i < dataGridView1.RowCount-1; i++)
+            x.query("Insert INTO bd_larc.`doacao` values (0, '" + valorTotal.ToString().Replace(',', '.') + "', '" + doadorCod + "');");
+            DataTable tabeladoacao = x.query("Select cod_doacao FROM bd_larc.`doacao` where cod_doador='" + doadorCod + "' AND valor_total='" + valorTotal + "';");
+            codDoacao = Convert.ToInt32(tabeladoacao.Rows[0][0].ToString());
+            for (int i = 0; i < dataGridView1.RowCount - 1; i++)
+            {
+                if (dataGridView1.Rows[i].Cells[4].Value.ToString() != "Não contabilizado")
                 {
-                    if (dataGridView1.Rows[i].Cells[4].Value.ToString() != "Não contabilizado") { 
-                    DataTable minhaDataTable = x.query("Select cod_it from bd_larc.`item` where `tipo`='"+dataGridView1.Rows[i].Cells[0].Value +"' AND `descricao`='"+dataGridView1.Rows[i].Cells[1].Value +"';");
-                    x.query("Insert INTO bd_larc.`doacxitem` values (" +Convert.ToInt32(dataGridView1.Rows[i].Cells[2].Value.ToString()) + ", " + int.Parse(minhaDataTable.Rows[0][0].ToString()) + ", " + codDoacao + ");");
-                    }
+                    DataTable minhaDataTable = x.query("Select cod_it from bd_larc.`item` where `tipo`='" + dataGridView1.Rows[i].Cells[0].Value + "' AND `descricao`='" + dataGridView1.Rows[i].Cells[1].Value + "';");
+                    x.query("Insert INTO bd_larc.`doacxitem` values (" + Convert.ToInt32(dataGridView1.Rows[i].Cells[2].Value.ToString()) + ", " + int.Parse(minhaDataTable.Rows[0][0].ToString()) + ", " + codDoacao + ");");
                 }
-                MessageBox.Show("Operação concluida", "Doação registrada",MessageBoxButtons.OK,MessageBoxIcon.Information);
-            
+            }
+            MessageBox.Show("Operação concluida", "Doação registrada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
         }
 
     }
