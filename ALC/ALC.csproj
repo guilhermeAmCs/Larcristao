@@ -60,6 +60,7 @@
     <Compile Include="CadastroProduto.Designer.cs">
       <DependentUpon>CadastroProduto.cs</DependentUpon>
     </Compile>
+    <Compile Include="ClsItem.cs" />
     <Compile Include="Conexao.cs" />
     <Compile Include="finalizarDoacao.cs">
       <SubType>Form</SubType>

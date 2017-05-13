@@ -30,6 +30,8 @@
         {
             this.lblRetira = new System.Windows.Forms.Label();
             this.grbDescProduto = new System.Windows.Forms.GroupBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.lblCasa = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.lblQuantidade = new System.Windows.Forms.Label();
             this.cmbDescricao = new System.Windows.Forms.ComboBox();
@@ -39,8 +41,6 @@
             this.btnVoltar = new System.Windows.Forms.Button();
             this.btnLimpar = new System.Windows.Forms.Button();
             this.btnSalvar = new System.Windows.Forms.Button();
-            this.lblCasa = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.grbDescProduto.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
@@ -72,6 +72,25 @@
             this.grbDescProduto.TabStop = false;
             this.grbDescProduto.Text = "Selecione a Casa / Tipo do Produto / Descrição  / Quantidade";
             // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(176, 37);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(374, 21);
+            this.comboBox1.TabIndex = 28;
+            this.comboBox1.Text = "Clique aqui para selecionar a casa que fez a requisição ...";
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // lblCasa
+            // 
+            this.lblCasa.AutoSize = true;
+            this.lblCasa.Location = new System.Drawing.Point(25, 40);
+            this.lblCasa.Name = "lblCasa";
+            this.lblCasa.Size = new System.Drawing.Size(89, 13);
+            this.lblCasa.TabIndex = 27;
+            this.lblCasa.Text = "Selecione a casa";
+            // 
             // numericUpDown1
             // 
             this.numericUpDown1.Enabled = false;
@@ -96,15 +115,6 @@
             // 
             this.cmbDescricao.Enabled = false;
             this.cmbDescricao.FormattingEnabled = true;
-            this.cmbDescricao.Items.AddRange(new object[] {
-            "PlayStation 4",
-            "PlayStation 5",
-            "Lego - StarWars",
-            "Comida gostosa",
-            "Comida gostosa não perecivel",
-            "Roupa de frio",
-            "Camiseta",
-            "Outro produto qualquer"});
             this.cmbDescricao.Location = new System.Drawing.Point(176, 117);
             this.cmbDescricao.Name = "cmbDescricao";
             this.cmbDescricao.Size = new System.Drawing.Size(374, 21);
@@ -126,10 +136,6 @@
             // 
             this.cmbTipo.Enabled = false;
             this.cmbTipo.FormattingEnabled = true;
-            this.cmbTipo.Items.AddRange(new object[] {
-            "Brinquedo",
-            "Alimento",
-            "Roupa"});
             this.cmbTipo.Location = new System.Drawing.Point(176, 77);
             this.cmbTipo.Name = "cmbTipo";
             this.cmbTipo.Size = new System.Drawing.Size(374, 21);
@@ -179,29 +185,7 @@
             this.btnSalvar.TabIndex = 24;
             this.btnSalvar.Text = "Salvar";
             this.btnSalvar.UseVisualStyleBackColor = true;
-            // 
-            // lblCasa
-            // 
-            this.lblCasa.AutoSize = true;
-            this.lblCasa.Location = new System.Drawing.Point(25, 40);
-            this.lblCasa.Name = "lblCasa";
-            this.lblCasa.Size = new System.Drawing.Size(89, 13);
-            this.lblCasa.TabIndex = 27;
-            this.lblCasa.Text = "Selecione a casa";
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Casa Emanuel",
-            "Casa Hosana",
-            "Casa Esqueci o nome"});
-            this.comboBox1.Location = new System.Drawing.Point(176, 37);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(374, 21);
-            this.comboBox1.TabIndex = 28;
-            this.comboBox1.Text = "Clique aqui para selecionar a casa que fez a requisição ...";
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click_1);
             // 
             // RegistroRetira
             // 
