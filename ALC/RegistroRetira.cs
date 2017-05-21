@@ -7,7 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using iTextSharp;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System.IO;
 namespace ALC
 {
     public partial class RegistroRetira : Form
@@ -101,6 +104,7 @@ namespace ALC
 
             comboBox1.Text = "Clique aqui para selecionar a casa que fez a requisição ...";
         }
+
 
 
         private void btnSalvar_Click_1(object sender, EventArgs e)

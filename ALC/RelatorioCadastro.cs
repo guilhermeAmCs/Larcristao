@@ -7,6 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using iTextSharp;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 
 namespace ALC
 {
@@ -18,6 +22,35 @@ namespace ALC
             buscarRelatorios();
         }
 
+        //dado um datagridview e um nome de arquivo
+        //Precisa mudar o caminho manualmente por enquanto
+        //insira essa função abaixo das tabelas
+        private void exportarpdf(DataGridView meuDatagridview, string nomeDoarquivo)
+        {
+
+            Document doc = new Document();
+            PdfWriter.GetInstance(doc, new FileStream(@"C:\users\gui\"+ nomeDoarquivo, FileMode.Create));
+            doc.Open();
+            PdfPTable pdfTable = new PdfPTable(5);
+            foreach (DataGridViewRow row in meuDatagridview.Rows)
+            {
+                foreach (DataGridViewCell celli in row.Cells)
+                {
+                    try
+                    {
+                        pdfTable.AddCell(celli.Value.ToString());
+                    }
+                    catch { }
+                }
+            }
+            doc.Add(pdfTable);
+            doc.Close();
+
+
+
+
+        }
+
         private void buscarRelatorios()
         {
             Conexao x = new Conexao();
@@ -26,7 +59,6 @@ namespace ALC
             {
                 dataGridView1.Rows.Add(item[0].ToString(), item[1].ToString(), item[2].ToString(), item[3].ToString(), item[4].ToString());
             }
-
             minhaDatatable = x.query("SELECT `item`.`tipo`, `item`.`descricao`, sum(`doacxitem`.`qtd`) FROM `bd_larc`.`doacxitem` inner join `bd_larc`.`item` on `doacxitem`.`cod_it`= `item`.`cod_it` Group by `item`.`tipo`, `item`.`descricao`; ");
             foreach (DataRow item in minhaDatatable.Rows)
             {
